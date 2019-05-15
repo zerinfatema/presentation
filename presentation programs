@@ -1,0 +1,103 @@
+# program number 4, Piglatin
+
+def piglatin(text):
+    def piglatin_word(word):
+        end = len(word)
+        word = word[1:end] + word[0] + "ay"
+        return word
+
+    return " ".join([piglatin_word(split_word) for split_word in text.split(" ")])
+
+
+def english(text):
+    def english_word(word):
+        end = len(word)
+        word = word[end - 3] + word[0:end - 3]
+        return word
+
+    return " ".join([english_word(split_word) for split_word in text.split(" ")])
+
+
+while (True):
+    data = input("Choose from the option: \n 1. English to Pig Latin \n 2. Pig Latin to English \n")
+
+    if (len(data) == 0):
+        print("Sorry no data found :'( ")
+        break
+    else:
+        try:
+            data = int(data)
+            if (data == 1):
+                text1 = input("Enter text: \n")
+                print(piglatin(text1))
+                break
+            elif (data == 2):
+                text2 = input("Enter text: \n")
+                print(english(text2))
+                break
+            else:
+                print("Choose from available")
+        except ValueError:
+            print("Please write a number")
+
+
+
+
+#program number 5, which wants 100 in total
+
+from functools import reduce
+
+operator = {1:'+',2:'-',0:''}
+digits = ['1', '2', '3', '4', '5', '6', '7', '8', '9']
+
+def abc(num):
+
+    array = []
+    for i in range(8):
+        index = 7 - i
+        array.append(num // (3 ** index))
+        num -= (num // (3 ** index)) * (3 ** index)
+    array = map(lambda x: operator[x], array)
+
+
+    rules = reduce(lambda x, y: x + y, zip(digits, array))
+    rules = list(rules)
+    rules.append('9')
+
+    rules = ''.join(rules)
+    mno = eval(rules)
+    return mno, rules
+
+# MAIN PART
+
+total = 3 ** 8
+for i in range(total):
+    mno, rules = abc(i)
+    if mno == 100:
+        print(rules + ' = 100')
+
+
+#program number 11, palindromic number
+
+def check_palindrome(s):
+    if s== s[::-1]:
+        return True
+
+
+flag = False
+
+for i in range(999,900,-1):
+
+    for j in range(999,900,-1):
+        product = i*j
+
+        if check_palindrome(str(product)):
+
+            print("i=",i," j=",j,"so the the palindrome number is ",product)
+            flag = True
+            break
+
+
+
+    if(flag):
+        break
